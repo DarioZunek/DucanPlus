@@ -1,0 +1,162 @@
+﻿@page
+@model Web_shop.Pages.AboutModel
+@{
+    ViewData["Title"] = "O nama";
+    Layout = "_Layout";
+}
+<header class="p-3 bg-dark text-white">
+    <div class="container">
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+            <a href="/">
+                <img src="~/Images/logo.png" alt="Logo" style="width: 100px;" />
+            </a>
+
+            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                <li><a href="/" class="nav-link px-2 text-white">Početna stranica</a></li>
+                <li><a href="/Category" class="nav-link px-2 text-white">Kategorije</a></li>
+                <li><a href="/Delivery" class="nav-link px-2 text-white">Dostava i plaćanje</a></li>
+                <li><a href="/Faq" class="nav-link px-2 text-white">Česta pitanja</a></li>
+                <li><a href="/About" class="nav-link px-2 text-secondary">O nama</a></li>
+            </ul>
+
+            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+                <input type="search" id="searchInput" class="form-control form-control-light" placeholder="Traži..." aria-label="Tražilica">
+            </form>
+
+            <div class="text-end">
+                @if (string.IsNullOrEmpty(Model.Username))
+                {
+                    <button type="button" class="btn btn-outline-light me-2" onclick="window.location.href = '/Account/Login'">Prijava</button>
+                    <button type="button" class="btn btn-warning" onclick="window.location.href = '/Account/Register'">Registracija</button>
+                }
+                else
+                {
+                    <div class="dropdown-center">
+                        <button id="profileButton" class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="font-size: x-large;">
+                            👤
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/ShoppingCart">🛒 Košarica</a></li>
+                            <li><a class="dropdown-item" href="/Account/Logout">Odjava</a></li>
+                        </ul>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</header>
+<br />
+<h1 class="text-center text-secondary">O nama</h1>
+<br />
+
+<style>
+    .hero-section {
+        background: url('/Images/banner.jpg') center/cover no-repeat;
+        color: white;
+        padding: 100px 0;
+        text-align: center;
+    }
+
+    .text-in-hero h1, .text-in-hero p{
+        margin: 0px;
+        padding: 0px;
+        text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
+    }
+
+    .team-member img {
+        border-radius: 50%;
+        max-width: 100px;
+        margin-bottom: 20px;
+    }
+</style>
+
+<section class="hero-section d-flex align-items-center justify-content-center">
+    <div class="text-in-hero">
+        <h1 class="display-4">Dobrodošli u naš Web Shop</h1>
+        <p class="lead">Vaša destinacija za najbolje proizvode u supermarketu.</p>
+    </div>
+</section>
+
+<section class="py-5">
+    <div class="container">
+        <h2 class="text-center mb-4">O nama</h2>
+        <p class="text-center mb-5">Mi smo predani pružanju najbolje usluge i proizvoda našim kupcima. Naša misija je učiniti vaš život lakšim i ugodnijim. S dugogodišnjim iskustvom u industriji, razumijemo vaše potrebe i nastojimo ih zadovoljiti na najbolji mogući način.</p>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Naša Misija</h5>
+                        <p class="card-text">Naša misija je pružiti visokokvalitetne proizvode i izvrsnu uslugu kupcima, osiguravajući njihovo potpuno zadovoljstvo.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Naša Vizija</h5>
+                        <p class="card-text">Naša vizija je postati vodeći web shop za supermarket robu, poznat po inovacijama, kvaliteti i izvanrednoj korisničkoj podršci.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Naše Vrijednosti</h5>
+                        <p class="card-text">Posvećeni smo integritetu, odgovornosti, kvaliteti i zadovoljstvu kupaca u svakom aspektu našeg poslovanja.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-5 bg-light">
+    <div class="container">
+        <h2 class="text-center mb-4">Naš Tim</h2>
+        <div class="row">
+            <div class="col-md-3 text-center team-member">
+                <img src="/Images/osoba1.jpg" alt="Team Member 1">
+                <h5>Ivan Horvat</h5>
+                <p>CEO</p>
+            </div>
+            <div class="col-md-3 text-center team-member">
+                <img src="/Images/osoba2.jpg" alt="Team Member 2">
+                <h5>Ana Kovačić</h5>
+                <p>Voditelj Prodaje</p>
+            </div>
+            <div class="col-md-3 text-center team-member">
+                <img src="/Images/osoba3.jpg" alt="Team Member 3">
+                <h5>Marko Perić</h5>
+                <p>Voditelj Logistike</p>
+            </div>
+            <div class="col-md-3 text-center team-member">
+                <img src="/Images/osoba4.jpg" alt="Team Member 4">
+                <h5>Lucija Novak</h5>
+                <p>Voditelj Marketinga</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-5">
+    <div class="container">
+        <h2 class="text-center mb-4">Kontaktirajte nas</h2>
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <div class="mb-3">
+                    <p>IT podrška: Dario Žunek</p>
+                    <p>Email: <a href="mailto:dzunek@student.foi.hr">dzunek@student.foi.hr</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<hr class="featurette-divider">
+
+<footer class="py-3 my-4">
+    <p class="text-center text-body-secondary">© 2024 DućanPlus, d.o.o.</p>
+</footer>
+

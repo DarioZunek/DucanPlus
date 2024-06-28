@@ -1,0 +1,212 @@
+﻿@page
+@model Web_shop.Pages.IndexModel
+@{
+    ViewData["Title"] = "Početna stranica";
+    Layout = "_Layout";
+}
+<header class="p-3 bg-dark text-white">
+    <div class="container">
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+            <a href="/">
+                <img src="~/Images/logo.png" alt="Logo" style="width: 100px;" />
+            </a>
+
+            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                <li><a href="/" class="nav-link px-2 text-secondary">Početna stranica</a></li>
+                <li><a href="/Category" class="nav-link px-2 text-white">Kategorije</a></li>
+                <li><a href="/Delivery" class="nav-link px-2 text-white">Dostava i plaćanje</a></li>
+                <li><a href="/Faq" class="nav-link px-2 text-white">Česta pitanja</a></li>
+                <li><a href="/About" class="nav-link px-2 text-white">O nama</a></li>
+            </ul>
+
+            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+                <input type="search" id="searchInput" class="form-control form-control-light" placeholder="Traži..." aria-label="Tražilica">
+            </form>
+
+            <div class="text-end">
+                @if (string.IsNullOrEmpty(Model.Username))
+                {
+                    <button type="button" class="btn btn-outline-light me-2" onclick="window.location.href = '/Account/Login'">Prijava</button>
+                    <button type="button" class="btn btn-warning" onclick="window.location.href = '/Account/Register'">Registracija</button>
+                }
+                else
+                {
+                    <div class="dropdown-center">
+                        <button id="profileButton" class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="font-size: x-large;">
+                            👤
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/ShoppingCart">🛒 Košarica</a></li>
+                            <li><a class="dropdown-item" href="/Account/Logout">Odjava</a></li>
+                        </ul>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</header>
+<br />
+<h1 class="text-center text-secondary">Dobrodošli na Web shop DućanPlus</h1>
+<br />
+
+<main>
+    <div class="container marketing">
+        <hr class="featurette-divider">
+        <br />
+
+        <div class="row featurette">
+            <div class="col-md-7">
+                <h2 class="featurette-heading fw-normal lh-1">Voće i povrće. <span class="text-body-secondary">Uvijek svježe.</span></h2>
+                <p class="lead">
+                    Otkrijte blagodati prirode s našim izborom svježeg voća i povrća. Pažljivo odabrani,
+                    naši proizvodi su svjedočanstvo živopisnih okusa i hranjivih prednosti koje samo najsvježiji
+                    sastojci mogu pružiti. Od hrskavog zelenila do sočnog voća, svaki artikl u našoj kolekciji
+                    obećava obogatiti vaša jela s praskom prirodne dobrote. Prepustite se zdravim užicima svježe
+                    hrane izravno s farme i osjetite razliku u svakom zalogaju.
+                </p>
+            </div>
+            <div class="col-md-5">
+                <img src="~/Images/vegetables.jpg" alt="Logo" width="400" height="400" />
+            </div>
+        </div>
+
+        <br />
+        <hr class="featurette-divider">
+        <br />
+
+        <div class="row featurette">
+            <div class="col-md-7 order-md-2">
+                <h2 class="featurette-heading fw-normal lh-1">Igračke za najmlađe. <span class="text-body-secondary">Sitan namještaj za domaćinstvo.</span></h2>
+                <p class="lead">
+                    Za najmlađe članove vaše obitelji, naša kolekcija igračaka nudi bezbroj sati zabave i kreativnog izražavanja.
+                    Od edukativnih setova do maštovitih igračaka, svaki komad je dizajniran s ljubavlju i pažnjom na sigurnost. A za vaš dom,
+                    naš izbor sitnog namještaja donosi funkcionalnost i stil u svaki kutak. Bilo da se radi o šarmantnim poličkama ili elegantnim stolićima,
+                    naš namještaj će upotpuniti vaš prostor i stvoriti toplo i ugodno okruženje.
+                </p>
+            </div>
+            <div class="col-md-5 order-md-1">
+                <img src="~/Images/toys.jpg" alt="Logo" width="400" height="400" />
+            </div>
+        </div>
+
+        <br />
+        <hr class="featurette-divider">
+        <br />
+
+        <div class="row featurette">
+            <div class="col-md-7">
+                <h2 class="featurette-heading fw-normal lh-1">Uvijek pune police. <span class="text-body-secondary">Sve što vam treba.</span></h2>
+                <p class="lead">
+                    Naše police su uvijek pune, osiguravajući da pronađete sve što vam je potrebno za svakodnevni život.
+                    Od osnovnih namirnica do specijaliteta, naš asortiman je pažljivo odabran kako bi zadovoljio vaše potrebe i želje.
+                    Bez obzira tražite li sastojke za sljedeći kulinarski pothvat ili poslasticu za trenutke opuštanja, kod nas ćete
+                    pronaći sve. Posjetite nas i uvjerite se u raznolikost i kvalitetu naših proizvoda – jer mi znamo da zaslužujete najbolje.
+                </p>
+            </div>
+            <div class="col-md-5">
+                <img src="~/Images/supermarket_shelves.jpg" alt="Logo" width="400" height="400" />
+            </div>
+        </div>
+
+        <div class="toast-container position-fixed bottom-0 end-0 p-3">
+            <div id="loginSuccessToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+                    <strong class="me-auto">Uspješna Prijava</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body">
+                    Dobrodošli natrag!
+                </div>
+            </div>
+        </div>
+
+        <div class="toast-container position-fixed bottom-0 end-0 p-3">
+            <div id="registerSuccessToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+                    <strong class="me-auto">Uspješna Registracija</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body">
+                    Dobrodošli natrag!
+                </div>
+            </div>
+        </div>
+
+        <div class="toast-container position-fixed bottom-0 end-0 p-3">
+            <div id="logoutSuccessToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+                    <strong class="me-auto">Odjava</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body">
+                    Odjava uspješna.
+                </div>
+            </div>
+        </div>
+
+        <div class="toast-container position-fixed bottom-0 end-0 p-3">
+            <div id="deliverySuccessToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+                    <strong class="me-auto">Dostava zakazana</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body">
+                    Dostava je uspješno zakazana.
+                </div>
+            </div>
+        </div>
+
+        <br />
+        <hr class="featurette-divider">
+
+        <footer class="py-3 my-4">
+            <p class="text-center text-body-secondary">© 2024 DućanPlus, d.o.o.</p>
+        </footer>
+    </div>
+</main>
+
+@if (TempData["ShowLoginSuccessToast"] != null && (bool)TempData["ShowLoginSuccessToast"]!)
+{
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            var toastEl = document.getElementById('loginSuccessToast');
+            var toast = new bootstrap.Toast(toastEl);
+            toast.show();
+        });
+    </script>
+}
+
+@if (TempData["ShowRegisterSuccessToast"] != null && (bool)TempData["ShowRegisterSuccessToast"]!)
+{
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            var toastEl = document.getElementById('registerSuccessToast');
+            var toast = new bootstrap.Toast(toastEl);
+            toast.show();
+        });
+    </script>
+}
+
+@if (TempData["ShowLogoutSuccessToast"] != null && (bool)TempData["ShowLogoutSuccessToast"]!)
+{
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            var toastEl = document.getElementById('logoutSuccessToast');
+            var toast = new bootstrap.Toast(toastEl);
+            toast.show();
+        });
+    </script>
+}
+
+@if (TempData["DeliverySuccessToast"] != null && (bool)TempData["DeliverySuccessToast"]!)
+{
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            var toastEl = document.getElementById('deliverySuccessToast');
+            var toast = new bootstrap.Toast(toastEl);
+            toast.show();
+        });
+    </script>
+}
+
+

@@ -1,0 +1,189 @@
+﻿@page
+@model Web_shop.Pages.ShoppingCartModel
+@{
+    ViewData["Title"] = "Košarica";
+    Layout = "_LayoutCart";
+}
+<section class="h-100 h-custom" style="background-color: #eee;">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col">
+                <div class="card">
+                    <div class="card-body p-4">
+
+                        <div class="row">
+
+                            <div class="col-lg-7">
+                                <h5 class="mb-3">
+                                    <a href="/Category" class="text-body">
+                                        <i class="fas fa-long-arrow-alt-left me-2"></i>Nastavite s kupnjom
+                                    </a>
+                                </h5>
+                                <hr>
+
+                                <div class="d-flex justify-content-between align-items-center mb-4">
+                                    <div>
+                                        <p class="mb-1">Košarica</p>
+                                        <p class="mb-0">Imate @Model.BasketItems.Count proizvoda u košarici</p>
+                                    </div>
+                                </div>
+
+                                @if (Model.BasketItems.Count == 0)
+                                {
+                                    <p>Your basket is empty.</p>
+                                }
+                                else
+                                {
+                                    @foreach (var item in Model.BasketItems)
+                                    {
+                                        <div class="card mb-3">
+                                            <div class="card-body">
+                                                <div class="d-flex justify-content-between">
+                                                    <div class="d-flex flex-row align-items-center">
+                                                        <div class="ms-3">
+                                                            <h5>@item.Product.Name</h5>
+                                                            <p class="small mb-0">@item.Product.Description</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex flex-row align-items-center">
+                                                        <div style="width: 50px;">
+                                                            <h5 class="fw-normal mb-0">@item.Quantity</h5>
+                                                        </div>
+                                                        <div style="width: 80px;">
+                                                            <h5 class="mb-0">@item.RetailPrice €</h5>
+                                                        </div>
+                                                        <form method="post" asp-page-handler="DeleteItem" asp-route-id="@item.Id">
+                                                            @Html.AntiForgeryToken()
+                                                            <button type="submit" class="btn btn-link delete-item" style="color: #cecece;">
+                                                                <i class="fas fa-trash-alt"></i>
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                            <div class="col-lg-5">
+
+                                <div class="card bg-primary text-white rounded-3">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-center mb-4">
+                                            <h5 class="mb-0">Podaci o kartici</h5>
+                                            <i class="fas fa-user-circle fa-2x me-2"></i>
+                                        </div>
+
+                                        <p class="small mb-2">Vrsta kartice</p>
+                                        <a href="#!" class="text-secondary card-link">
+                                            <i class="fab fa-cc-mastercard fa-2x me-2"></i>
+                                        </a>
+                                        <a href="#!" class="text-secondary card-link">
+                                            <i class="fab fa-cc-visa fa-2x me-2"></i>
+                                        </a>
+                                        <a href="#!" class="text-secondary card-link">
+                                            <i class="fab fa-cc-amex fa-2x me-2"></i>
+                                        </a>
+
+                                        <form class="mt-4">
+                                            <div class="form-group mb-3">
+                                                <label for="typeName">Ime vlasnika</label>
+                                                <input type="text" class="form-control" id="typeName" placeholder="Ime vlasnika">
+                                            </div>
+
+                                            <div class="form-group mb-3">
+                                                <label for="typeNumber">Broj kartice</label>
+                                                <input type="text" class="form-control" id="typeNumber" placeholder="1234 5678 9012 3457" minlength="19" maxlength="19">
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-6 mb-3">
+                                                    <label for="typeExp">Datum isteka</label>
+                                                    <input type="text" class="form-control" id="typeExp" placeholder="MM/YYYY" minlength="7" maxlength="7">
+                                                </div>
+
+                                                <div class="col-md-6 mb-3">
+                                                    <label for="typeCvv">Cvv</label>
+                                                    <input type="password" class="form-control" id="typeCvv" placeholder="&#9679;&#9679;&#9679;" minlength="3" maxlength="3">
+                                                </div>
+                                            </div>
+                                        </form>
+
+
+                                        <hr class="my-4">
+
+                                        @{
+                                            decimal ukupnoStavke = 0;
+                                            foreach (var item in Model.BasketItems)
+                                            {
+                                                decimal stavkaUkupno = item.Product.RetailPrice * item.Quantity;
+                                                ukupnoStavke += stavkaUkupno;
+                                            }
+                                        }
+
+                                        <div class="d-flex justify-content-between">
+                                            <p class="mb-2">Ukupno stavke</p>
+                                            <p class="mb-2">@ukupnoStavke €</p>
+                                        </div>
+
+                                        <div class="d-flex justify-content-between">
+                                            <p class="mb-2">Dostava</p>
+                                            <p class="mb-2">3.00 €</p>
+                                        </div>
+                                        @{
+                                            ukupnoStavke += 3;
+                                        }
+                                        <div class="d-flex justify-content-between mb-4">
+                                            <p class="mb-2">Ukupno(s PDV-om)</p>
+                                            <p class="mb-2">@ukupnoStavke €</p>
+                                        </div>
+
+                                        <form method="post">
+                                            @Html.AntiForgeryToken()
+                                            <input type="hidden" name="amount" value="@ukupnoStavke" />
+                                            <button type="submit" asp-page-handler="ProcessPayment" data-mdb-button-init data-mdb-ripple-init class="btn btn-info btn-block btn-lg @((Model.BasketItems.Count == 0 && ukupnoStavke == 3) ? "disabled" : "")">
+                                                <div class="d-flex justify-content-between">
+                                                    <span>@ukupnoStavke €</span>
+                                                    <span>Kupnja <i class="fas fa-long-arrow-alt-right ms-2"></i></span>
+                                                </div>
+                                            </button>
+                                        </form>
+
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var cardLinks = document.querySelectorAll('.card-link');
+
+        cardLinks.forEach(function (link) {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+                cardLinks.forEach(function (otherLink) {
+                    otherLink.classList.remove('selected-card');
+                    otherLink.classList.remove('text-white');
+                    if (!otherLink.classList.contains('text-secondary')) {
+                        otherLink.classList.add('text-secondary');
+                    }
+                });
+
+                this.classList.remove('text-secondary');
+                this.classList.add('text-white');
+
+            });
+        });
+    });
+</script>
+

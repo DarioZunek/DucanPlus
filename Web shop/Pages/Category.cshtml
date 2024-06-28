@@ -1,0 +1,96 @@
+﻿@page
+@model Web_shop.Pages.CategoryModel
+@{
+    ViewData["Title"] = "Kategorije";
+    Layout = "_Layout";
+}
+<header class="p-3 bg-dark text-white">
+    <div class="container">
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+            <a href="/">
+                <img src="~/Images/logo.png" alt="Logo" style="width: 100px;" />
+            </a>
+
+            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                <li><a href="/" class="nav-link px-2 text-white">Početna stranica</a></li>
+                <li><a href="/Category" class="nav-link px-2 text-secondary">Kategorije</a></li>
+                <li><a href="/Delivery" class="nav-link px-2 text-white">Dostava i plaćanje</a></li>
+                <li><a href="/Faq" class="nav-link px-2 text-white">Česta pitanja</a></li>
+                <li><a href="/About" class="nav-link px-2 text-white">O nama</a></li>
+            </ul>
+
+            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+                <input type="search" id="searchInput" class="form-control form-control-light" placeholder="Traži..." aria-label="Tražilica">
+            </form>
+
+            <div class="text-end">
+                @if (string.IsNullOrEmpty(Model.Username))
+                {
+                    <button type="button" class="btn btn-outline-light me-2" onclick="window.location.href = '/Account/Login'">Prijava</button>
+                    <button type="button" class="btn btn-warning" onclick="window.location.href = '/Account/Register'">Registracija</button>
+                }
+                else
+                {
+                    <div class="dropdown-center">
+                        <button id="profileButton" class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="font-size: x-large;">
+                            👤
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/ShoppingCart">🛒 Košarica</a></li>
+                            <li><a class="dropdown-item" href="/Account/Logout">Odjava</a></li>
+                        </ul>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</header>
+<br />
+<h1 class="text-center text-secondary">Pregled kategorija</h1>
+<br />
+<div class="container mt-3">
+    <div class="row">
+        @foreach (var category in Model.CategoryList)
+        {
+            <div class="col-md-4">
+                <div class="card mb-4 shadow-sm">
+                    <img src="@($"/Images/{category.Name}.jpg")" class="card-img-top" alt="Slika @category.Name" style="height: 200px; width: 100%; object-fit: cover;">
+                    <div class="card-body">
+                        <h5 class="card-title">@category.Name</h5>
+                        <p class="card-text">@category.Description</p>
+                        <a href="/Products?categoryId=@category.Id" class="btn btn-primary">Pregled proizvoda</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="cartSuccessToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <strong class="me-auto">Dodavanje u košaricu</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            Proizvod je dodan u košaricu.
+        </div>
+    </div>
+</div>
+
+<hr class="featurette-divider">
+
+<footer class="py-3 my-4">
+    <p class="text-center text-body-secondary">© 2024 DućanPlus, d.o.o.</p>
+</footer>
+
+@if (TempData["ToastMessage"] != null && (bool)TempData["ToastMessage"]!)
+{
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            var toastEl = document.getElementById('cartSuccessToast');
+            var toast = new bootstrap.Toast(toastEl);
+            toast.show();
+        });
+    </script>
+}

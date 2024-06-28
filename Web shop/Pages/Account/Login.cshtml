@@ -1,0 +1,44 @@
+﻿@page
+@using Web_shop.Pages.Account
+@model LoginModel
+@{
+    ViewData["Title"] = "Prijava";
+    Layout = "_Layout";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="text-center">Prijava</h2>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        @Html.AntiForgeryToken()
+                        <div asp-validation-summary="All" class="text-danger mb-3"></div>
+                        <div class="form-group mb-3">
+                            <label asp-for="Input.Username" class="form-label">Korisničko ime:</label>
+                            <input asp-for="Input.Username" class="form-control" aria-describedby="korisničkoIme" placeholder="Korisničko ime">
+                            <span asp-validation-for="Input.Username" class="text-danger"></span>
+                            <small id="usernameHelp" class="form-text text-muted">Vaše korisničko ime neće se dijeliti s drugim stranicama.</small>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label asp-for="Input.Password" class="form-label">Lozinka:</label>
+                            <input asp-for="Input.Password" class="form-control" placeholder="Lozinka" type="password">
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Prijavi se</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="fixed-bottom">
+    <hr class="featurette-divider">
+
+    <footer class="py-3 my-4">
+        <p class="text-center text-body-secondary">© 2024 DućanPlus, d.o.o.</p>
+    </footer>
+</div>

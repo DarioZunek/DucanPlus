@@ -1,0 +1,26 @@
+﻿.background-image {
+    position: relative;
+    z-index: 1;
+}
+
+.background-image::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('../Images/delivery.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+    opacity: 0.3;
+    z-index: -1;
+}
+
+.form-container {
+    position: relative;
+    z-index: 2;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 5px;
+    padding: 20px;
+}
