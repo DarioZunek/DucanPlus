@@ -1,0 +1,14 @@
+# Ignore the Visual Studio folder
+.vs/
+
+# Ignore the appsettings.json file
+appsettings.json
+
+# Ignore other common files/folders
+bin/
+obj/
+*.user
+*.suo
+*.log
+*.lck
+.DS_Store
