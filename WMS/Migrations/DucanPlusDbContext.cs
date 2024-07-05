@@ -8,7 +8,7 @@ public class DucanPlusDbContext : DbContext
 
     public DucanPlusDbContext()
      : this(new DbContextOptionsBuilder<DucanPlusDbContext>()
-         .UseSqlServer("Server=DESKTOP-J4BLD8F;Database=DucanPlus;User Id=sa;Password=lozinka00;")
+         .UseSqlServer("Connection string here")
          .Options)
     { }
 
